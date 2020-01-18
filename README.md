@@ -1,7 +1,7 @@
 # Snapshot Testing in Data Science
-An Introduction to SnapShot testing in Data Science Pipelines and Systems
+An Introduction to Snapshot testing in Data Science Pipelines and Systems
 
-## What SnapShot Testing is
+## What Snapshot Testing is
 
 It is usually quite hard to test data analytic systems. This is due to the sheer number of different calculations that have to be unit tested.
 
@@ -32,15 +32,15 @@ The core code for the snapshot test (which can be put in any test) is:
 
  results = some_calculation()
 
- exected_result_file_path = 'path_to_the_snapshot_file_of_choice'
+ expected_result_file_path = 'path_to_the_snapshot_file_of_choice'
  # the snapshot file should not exist at the beginning
  
- if not os.path.isfile(exected_result_file_path):
+ if not os.path.isfile(expected_result_file_path):
     # create the snapshot on the first run or anytime it is deleted manually
-    with open(exected_result_file_path, 'wb') as expected_results_file:
+    with open(expected_result_file_path, 'wb') as expected_results_file:
         pickle.dump(results, expected_results_file)
 
-with open(exected_result_file_path, 'rb') as expected_results_file:
+with open(expected_result_file_path, 'rb') as expected_results_file:
     # the actual test to compare against snapshot
     expected_results = pickle.loads(expected_results_file)
 
@@ -55,10 +55,10 @@ with open(exected_result_file_path, 'rb') as expected_results_file:
 
 ### Other Considerations
 
-- There is a possibility of also testing time spent calculating as opposed to the accurasy final results.
+- There is a possibility of also testing the time spent calculating as opposed to the accuracy of the final results.
 This too can be saved in a pickle file of say performance
 
 - Actually a whole range of performance parameters can be snapshot tested, including memory usage, time spent etc.
 
 ### ToDo
-- Create a sample project to showcase snashot testing in data science
+- Create a sample project to showcase snapshot testing in data science
