@@ -22,33 +22,31 @@ To save our snapshots, we will use pickle files.
 
 The core code for the snapshot test (which can be put in any test) is:
 
-    ```python
+```python
 
+ import os
+ import pickle
 
-    import os
-    import pickle
+ # ...... more code
+ # ......
 
-    # ...... more code
-    # ......
+ results = some_calculation()
 
-    results = some_calculation()
+ exected_result_file_path = 'path_to_the_snapshot_file_of_choice'
+ # the snapshot file should not exist at the beginning
+ 
+ if not os.path.isfile(exected_result_file_path):
+    # create the snapshot on the first run or anytime it is deleted manually
+    with open(exected_result_file_path, 'wb') as expected_results_file:
+        pickle.dump(results, expected_results_file)
 
-    exected_result_file_path = 'path_to_the_snapshot_file_of_choice'
-    # the snapshot file should not exist at the beginning
+with open(exected_result_file_path, 'rb') as expected_results_file:
+    # the actual test to compare against snapshot
+    expected_results = pickle.loads(expected_results_file)
 
-    if not os.path.isfile(exected_result_file_path):
-        # create the snapshot on the first run or anytime it is deleted manually
-        with open(exected_result_file_path, 'wb') as expected_results_file:
-            pickle.dump(results, expected_results_file)
-
-    with open(exected_result_file_path, 'rb') as expected_results_file:
-        # the actual test to compare against snapshot
-        expected_results = pickle.loads(expected_results_file)
-
-        # here is an assertion basing on a unittest test
-        self.assertEqual(results, expected_results)
-
-    ```
+    # here is an assertion basing on a unittest test
+    self.assertEqual(results, expected_results)
+```
 
 ### Suggestions
 
