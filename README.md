@@ -55,8 +55,8 @@ with open(expected_result_file_path, 'rb') as expected_results_file:
 
 ### Other Considerations
 
-- There is a possibility of also testing the time spent calculating as opposed to the accuracy of the final results.
-This too can be saved in a pickle file of say performance
+- There is a possibility of also testing the time spent calculating as opposed to testing only the accuracy of the final results.
+This too can be saved in a pickle file
 
 - Actually a whole range of performance parameters can be snapshot tested, including memory usage, time spent etc.
 
